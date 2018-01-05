@@ -1,0 +1,1 @@
+Simple project to show reviews and do several calculations on them
