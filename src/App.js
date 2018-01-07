@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
  
 class App extends React.Component {
   constructor() {
@@ -6,15 +7,26 @@ class App extends React.Component {
     this.showAverage = this.showAverage.bind(this);
   }
 
- async showAverage() {
-     let resp = await fetch('http://localhost:3000/calculate-average');
+  async showAverage() {
+     let resp = await fetch('http://localhost:3000/general-average');
+     console.log(await resp.json());
+  }
+  
+  async showAspectsAverage() {
+     let resp = await fetch('http://localhost:3000/aspects-average');
      console.log(await resp.json());
   }
  
   render() {
     return (
-      <button onClick={this.showAverage}>
-      </button>
+      <div>
+        <button onClick={this.showAverage}>
+        Show general averagesdsdsdsaa
+        </button>
+        <button onClick={this.showAspectsAverage}>
+        Show aspects average
+        </button>
+      </div>
     );
   }
 }
