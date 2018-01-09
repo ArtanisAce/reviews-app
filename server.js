@@ -34,6 +34,10 @@ app.use(webpackHotMiddleware(compiler, {
 //     console.log(obj);
 // });
 
+app.get('/get-reviews', function(req, res) {
+    res.send(reviews);
+});
+
 app.get('/general-average', function(req, res) {
     const average = (calculations.calculateGeneral(reviews)).toString();
     res.send(average);
