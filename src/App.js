@@ -6,10 +6,19 @@ class App extends React.Component {
   constructor() {
     super();
 
-    this.state = {reviews: []};
+    this.state = {
+      reviews: [],
+      showAverage: false,
+      showAspectsAverage: false,
+      average: 0,
+      aspectsAverage: {}
+    };
 
     this.showAverage = this
       .showAverage
+      .bind(this);
+    this.showAspectsAverage = this
+      .showAspectsAverage
       .bind(this);
   }
 
@@ -22,24 +31,53 @@ class App extends React.Component {
 
   async showAverage() {
     const resp = await fetch('http://localhost:3000/general-average');
-    console.log(await resp.json());
+    const average = await resp.json();
+    this.setState({showAverage: true, average});
   }
 
   async showAspectsAverage() {
     const resp = await fetch('http://localhost:3000/aspects-average');
-    console.log(await resp.json());
+    const aspectsAverage = await resp.json();
+    this.setState({showAspectsAverage: true, aspectsAverage});
   }
 
   render() {
+
+    const aspectsAverageTable = Object.keys(this.state.aspectsAverage).length !== 0 ? 
+    (
+      <table>
+        <theader>
+          <tr>
+            <th>
+              <th>
+                HACER UN COMPONENTE! UNA LISTA QUIZAS SIMPLEMENTE CON OBJECT.KEYS COMO ARRAY Y A CHUPARLA
+              </th>
+            </th>
+          </tr>
+        </theader>
+        <tbody>
+
+        </tbody>
+      </table>
+    ) : null;
+
     return (
       <div>
         <ReviewsTable reviews={this.state.reviews}/>
         <button onClick={this.showAverage}>
-          Show general averages
+          Show general average
         </button>
+        {this.state.showAverage &&
+        <div>
+          {this.state.average}
+        </div>}
         <button onClick={this.showAspectsAverage}>
           Show aspects average
         </button>
+        {this.state.showAspectsAverage &&
+        <div>
+          ASPECTS AVERAGE tABLE
+        </div>}
       </div>
     );
   }

@@ -49,7 +49,7 @@ const ReviewsTable = ({reviews}) => {
     );
 };
 
-ReviewsTable.PropTypes = {
+ReviewsTable.propTypes = {
     reviews: PropTypes.array.isRequired
 }
 
