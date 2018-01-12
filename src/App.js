@@ -43,23 +43,14 @@ class App extends React.Component {
 
   render() {
 
-    const aspectsAverageTable = Object.keys(this.state.aspectsAverage).length !== 0 ? 
-    (
-      <table>
-        <theader>
-          <tr>
-            <th>
-              <th>
-                HACER UN COMPONENTE! UNA LISTA QUIZAS SIMPLEMENTE CON OBJECT.KEYS COMO ARRAY Y A CHUPARLA
-              </th>
-            </th>
-          </tr>
-        </theader>
-        <tbody>
-
-        </tbody>
-      </table>
-    ) : null;
+    const aspectsAverage = this.state.aspectsAverage;
+    const aspectsList = Object.keys(aspectsAverage).length !== 0 ? 
+    Object.keys(aspectsAverage).map((aspect, index) => 
+    {
+      return (
+        <li key={index}>{`${aspect}: ${aspectsAverage[aspect]}`}</li>
+      )
+    }) : null;
 
     return (
       <div>
@@ -76,7 +67,9 @@ class App extends React.Component {
         </button>
         {this.state.showAspectsAverage &&
         <div>
-          ASPECTS AVERAGE tABLE
+          <ul>
+          {aspectsList}
+          </ul>
         </div>}
       </div>
     );
