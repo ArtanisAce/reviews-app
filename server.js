@@ -28,12 +28,6 @@ app.use(webpackHotMiddleware(compiler, {
     heartbeat: 10 * 1000,
   }));
 
-// Read json data
-// fs.readFile('reviews.json', 'utf8', function(error, data) {
-//     const obj = JSON.parse(data);
-//     console.log(obj);
-// });
-
 app.get('/get-reviews', function(req, res) {
     res.send(reviews);
 });

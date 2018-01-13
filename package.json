@@ -1,7 +1,7 @@
 {
   "name": "reviews-app",
   "version": "1.0.0",
-  "description": "Simple project to show reviews and do several calculations on them",
+  "description": "Simple fullstack project to show reviews and do several calculations on them",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
