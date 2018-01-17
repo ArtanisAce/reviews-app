@@ -9,6 +9,7 @@ class App extends React.Component {
 		this.state = {
 			reviews: [],
 			filterOption: "",
+			sortOrder: '', // can be asc or desc (asc = most recent to oldest)
 			showAverage: false,
 			showAspectsAverage: false,
 			average: 0,
@@ -20,13 +21,15 @@ class App extends React.Component {
 		this.selectFilterOption = this.selectFilterOption.bind(this);
 		this.clearFilter = this.clearFilter.bind(this);
 		this.convertDate = this.convertDate.bind(this);
+		this.sortAsc = this.sortAsc.bind(this);
+		this.sortDesc = this.sortDesc.bind(this);
 	}
 
 	async componentDidMount() {
 		try {
 			const resp = await fetch("http://localhost:3000/get-reviews");
 			const reviews = await resp.json();
-			this.setState({ reviews: this.convertDate(reviews) });
+			this.setState({ reviews });
 		} catch (e) {
 			return e.message;
 		}
@@ -77,16 +80,41 @@ class App extends React.Component {
 	}
 
 	clearFilter() {
-		this.setState({ filterOption: "" });
+		this.setState({ filterOption: '' });
+	}
+
+	sortAsc() {
+		this.setState({ sortOrder: 'asc' });
+	}
+
+	sortDesc() {
+		this.setState({ sortOrder: 'desc' });
 	}
 
 	render() {
+		const sortOrder = this.state.sortOrder;
 		const aspectsAverage = this.state.aspectsAverage;
-		const reviews = this.state.filterOption
+		let reviews = this.state.filterOption
 			? this.state.reviews.filter(
 				review => review.traveledWith === this.state.filterOption
 			)
 			: this.state.reviews;
+
+		// Check for sort order
+		if (this.state.sortOrder === 'asc') {
+			const dates = reviews.map(review => review.entryDate);
+			const sortedDates = dates.sort((a, b) => b - a);
+			reviews = reviews.map((review, index) => Object.assign(review, { entryDate: sortedDates[index] }));
+		}
+
+		if (this.state.sortOrder === 'desc') {
+			const dates = reviews.map(review => review.entryDate);
+			const sortedDates = dates.sort((a, b) => a - b);
+			reviews = reviews.map((review, index) => Object.assign(review, { entryDate: sortedDates[index] }));
+		}
+
+		const reviewsConverted = this.convertDate(reviews);
+
 		const aspectsList =
 			Object.keys(aspectsAverage).length !== 0
 				? Object.keys(aspectsAverage).map((aspect, index) => {
@@ -149,14 +177,20 @@ class App extends React.Component {
 			</div>
 		);
 
-		if (reviews.length === 0) {
+		if (reviewsConverted.length === 0) {
 			return spinnerWave;
 		} else {
 			return (
 				<div>
 					<h1>Accomodation Reviews</h1>
 					{traveledWithFilter}
-					<ReviewsTable reviews={reviews} />
+					<button onClick={this.sortAsc}>
+						Sort by date asc
+					</button>
+					<button onClick={this.sortDesc}>
+						Sort by date desc
+					</button>
+					<ReviewsTable reviews={reviewsConverted} />
 					<button onClick={this.showAverage}>Show general average</button>
 					{this.state.showAverage && <div>{this.state.average}</div>}
 					<button onClick={this.showAspectsAverage}>
