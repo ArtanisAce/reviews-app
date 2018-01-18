@@ -9,7 +9,8 @@ class App extends React.Component {
 		this.state = {
 			reviews: [],
 			filterOption: "",
-			sortOrder: '', // can be asc or desc (asc = most recent to oldest)
+			reviewSortOrder: '', // can be asc or desc (asc = most recent to oldest)
+			travelSortOrder: '',
 			showAverage: false,
 			showAspectsAverage: false,
 			average: 0,
@@ -21,8 +22,10 @@ class App extends React.Component {
 		this.selectFilterOption = this.selectFilterOption.bind(this);
 		this.clearFilter = this.clearFilter.bind(this);
 		this.convertDate = this.convertDate.bind(this);
-		this.sortAsc = this.sortAsc.bind(this);
-		this.sortDesc = this.sortDesc.bind(this);
+		this.reviewSortAsc = this.reviewSortAsc.bind(this);
+		this.reviewSortDesc = this.reviewSortDesc.bind(this);
+		this.travelSortAsc = this.travelSortAsc.bind(this);
+		this.travelSortDesc = this.travelSortDesc.bind(this);
 	}
 
 	async componentDidMount() {
@@ -83,16 +86,26 @@ class App extends React.Component {
 		this.setState({ filterOption: '' });
 	}
 
-	sortAsc() {
-		this.setState({ sortOrder: 'asc' });
+	reviewSortAsc() {
+		this.setState({ reviewSortOrder: 'asc', travelSortOrder: '' });
 	}
 
-	sortDesc() {
-		this.setState({ sortOrder: 'desc' });
+	reviewSortDesc() {
+		this.setState({ reviewSortOrder: 'desc', travelSortOrder: '' });
 	}
+
+	travelSortAsc() {
+		this.setState({ travelSortOrder: 'asc', reviewSortOrder: '' });
+	}
+
+	travelSortDesc() {
+		this.setState({ travelSortOrder: 'desc', reviewSortOrder: '' });
+	}
+
+
 
 	render() {
-		const sortOrder = this.state.sortOrder;
+		const reviewSortOrder = this.state.reviewSortOrder;
 		const aspectsAverage = this.state.aspectsAverage;
 		let reviews = this.state.filterOption
 			? this.state.reviews.filter(
@@ -100,17 +113,30 @@ class App extends React.Component {
 			)
 			: this.state.reviews;
 
-		// Check for sort order
-		if (this.state.sortOrder === 'asc') {
+		// Check for sort order on review submission
+		if (this.state.reviewSortOrder === 'asc') {
 			const dates = reviews.map(review => review.entryDate);
 			const sortedDates = dates.sort((a, b) => b - a);
 			reviews = reviews.map((review, index) => Object.assign(review, { entryDate: sortedDates[index] }));
 		}
 
-		if (this.state.sortOrder === 'desc') {
+		if (this.state.reviewSortOrder === 'desc') {
 			const dates = reviews.map(review => review.entryDate);
 			const sortedDates = dates.sort((a, b) => a - b);
 			reviews = reviews.map((review, index) => Object.assign(review, { entryDate: sortedDates[index] }));
+		}
+
+		// Check for sort order on travel date
+		if (this.state.travelSortOrder === 'asc') {
+			const dates = reviews.map(review => review.travelDate);
+			const sortedDates = dates.sort((a, b) => b - a);
+			reviews = reviews.map((review, index) => Object.assign(review, { travelDate: sortedDates[index] }));
+		}
+
+		if (this.state.travelSortOrder === 'desc') {
+			const dates = reviews.map(review => review.travelDate);
+			const sortedDates = dates.sort((a, b) => a - b);
+			reviews = reviews.map((review, index) => Object.assign(review, { travelDate: sortedDates[index] }));
 		}
 
 		const reviewsConverted = this.convertDate(reviews);
@@ -184,22 +210,26 @@ class App extends React.Component {
 				<div>
 					<h1>Accomodation Reviews</h1>
 					{traveledWithFilter}
-					<button onClick={this.sortAsc}>
-						Sort by date asc
+					<button onClick={this.reviewSortAsc}>
+						Sort by review date asc
 					</button>
-					<button onClick={this.sortDesc}>
-						Sort by date desc
+					<button onClick={this.reviewSortDesc}>
+						Sort by review date desc
+					</button>
+					<button onClick={this.travelSortAsc}>
+						Sort by travel date desc
+					</button>
+					<button onClick={this.travelSortDesc}>
+						Sort by travel date desc
 					</button>
 					<ReviewsTable reviews={reviewsConverted} />
 					<button onClick={this.showAverage}>Show general average</button>
-					{this.state.showAverage && <div>{this.state.average}</div>}
+					{this.state.showAverage && <div className="general-average">{this.state.average}</div>}
 					<button onClick={this.showAspectsAverage}>
 						Show aspects average
           </button>
 					{this.state.showAspectsAverage && (
-						<div>
-							<ul className="aspects-list">{aspectsList}</ul>
-						</div>
+						<ul className="aspects-list">{aspectsList}</ul>
 					)}
 				</div>
 			);

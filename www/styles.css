@@ -97,8 +97,22 @@ table.reviews-table thead th:first-child {
   border-left: none;
 }
 
+.filter {
+	margin: 0 24px;
+}
+
 .filter label {
 	display: block;
+}
+
+.aspects-list { /* Hacer alguna transicion para que aparezca, dejarlo en dos columnas y centrar */
+	display: block;
+	margin: 0 24px 32px;
+	font-weight: bold;
+}
+
+.general-average { /* Hacer alguna transicion para que aparezca */
+	margin: 0 24px;
 }
 
 /* Spinner wave */

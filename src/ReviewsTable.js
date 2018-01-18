@@ -35,9 +35,9 @@ const ReviewsTable = ({ reviews }) => {
           <th>Review date</th>
           <th>Travel Date</th>
           <th>Rating</th>
-          <th>Aspects Rating</th>
+          {/* <th>Aspects Rating</th>
           <th>User</th>
-          <th>Locale</th>
+          <th>Locale</th> */}
         </tr>
       </thead>
       <tbody>{getReviewsRows()}</tbody>
