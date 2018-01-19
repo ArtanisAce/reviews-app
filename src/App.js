@@ -216,14 +216,20 @@ class App extends React.Component {
 						reviewSortDesc={this.reviewSortDesc}
 						travelSortAsc={this.travelSortAsc}
 						travelSortDesc={this.travelSortDesc} />
-					<button onClick={this.showAverage}>Show general average</button>
-					{this.state.showAverage && <div className="general-average">{this.state.average}</div>}
-					<button onClick={this.showAspectsAverage}>
-						Show aspects average
-          </button>
-					{this.state.showAspectsAverage && (
-						<ul className="aspects-list">{aspectsList}</ul>
-					)}
+					<div className="calculations">
+						<div className="general-average">
+							<button onClick={this.showAverage}>Show general average</button>
+							{this.state.showAverage && <div className="general-average-result">{this.state.average}</div>}
+						</div>
+						<div className="aspects-list">
+							<button onClick={this.showAspectsAverage}>
+								Show aspects average
+         			</button>
+							{this.state.showAspectsAverage && (
+								<ul className="aspects-list-result">{aspectsList}</ul>
+							)}
+						</div>
+					</div>
 				</div>
 			);
 		}

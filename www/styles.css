@@ -28,11 +28,11 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	font: 16px Arial, sans-serif;
 }
 
 h1 {
 	margin: 24px;
-	font: bold 32px Arial, sans-serif;
 }
 
 ol, ul {
@@ -56,7 +56,6 @@ button {
 	border-radius: 18px;
 	background: #f24437;
 	color: #ffffff;
-	font-size: 16px;
 	cursor: pointer;
 	margin: 24px;
 }
@@ -98,20 +97,39 @@ table.reviews-table thead th:first-child {
 }
 
 .filter {
+	display: flex;
 	margin: 0 24px;
+	border: 1px solid black;
+	padding: 8px;
+	width: fit-content;
+	align-items: center;
+	justify-content: center;
 }
 
 .filter label {
 	display: block;
 }
 
-.aspects-list { /* Hacer alguna transicion para que aparezca, dejarlo en dos columnas y centrar */
+.calculations { /* TODO: TRABAJAR EL FLEXBOX!! */
+	display: flex;
+	align-items: center;
+}
+
+.aspects-list {
+	flex: 1;
+}
+
+.general-average {
+	flex: 1;
+}
+
+.aspects-list-result { /* Hacer alguna transicion para que aparezca, dejarlo en dos columnas y centrar */
 	display: block;
 	margin: 0 24px 32px;
 	font-weight: bold;
 }
 
-.general-average { /* Hacer alguna transicion para que aparezca */
+.general-average-result { /* Hacer alguna transicion para que aparezca */
 	margin: 0 24px;
 }
 
