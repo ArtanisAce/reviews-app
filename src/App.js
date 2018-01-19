@@ -210,19 +210,12 @@ class App extends React.Component {
 				<div>
 					<h1>Accomodation Reviews</h1>
 					{traveledWithFilter}
-					<button onClick={this.reviewSortAsc}>
-						Sort by review date asc
-					</button>
-					<button onClick={this.reviewSortDesc}>
-						Sort by review date desc
-					</button>
-					<button onClick={this.travelSortAsc}>
-						Sort by travel date desc
-					</button>
-					<button onClick={this.travelSortDesc}>
-						Sort by travel date desc
-					</button>
-					<ReviewsTable reviews={reviewsConverted} />
+					<ReviewsTable
+						reviews={reviewsConverted}
+						reviewSortAsc={this.reviewSortAsc}
+						reviewSortDesc={this.reviewSortDesc}
+						travelSortAsc={this.travelSortAsc}
+						travelSortDesc={this.travelSortDesc} />
 					<button onClick={this.showAverage}>Show general average</button>
 					{this.state.showAverage && <div className="general-average">{this.state.average}</div>}
 					<button onClick={this.showAspectsAverage}>
