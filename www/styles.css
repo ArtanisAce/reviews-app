@@ -110,28 +110,47 @@ table.reviews-table thead th:first-child {
 	display: block;
 }
 
-.calculations { /* TODO: TRABAJAR EL FLEXBOX!! */
+.calculations {
 	display: flex;
-	align-items: center;
+	margin: 32px;
+	justify-content: flex-start;
 }
 
 .aspects-list {
 	flex: 1;
+	align-self: flex-start;
 }
 
 .general-average {
-	flex: 1;
+	flex: 1;	
+	font-size: 52px;
+	align-self: flex-start;
 }
 
-.aspects-list-result { /* Hacer alguna transicion para que aparezca, dejarlo en dos columnas y centrar */
+.aspects-list-result {
 	display: block;
-	margin: 0 24px 32px;
-	font-weight: bold;
+	margin: 24px;
+	-webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
 }
 
-.general-average-result { /* Hacer alguna transicion para que aparezca */
-	margin: 0 24px;
+.general-average-result {
+	margin: 24px;
+	-webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
 }
+
+/* Transitions */
+
+@-webkit-keyframes fadeIn {
+	from { opacity: 0; }
+		to { opacity: 1; }
+}  
+@keyframes fadeIn {
+	from { opacity: 0; }
+		to { opacity: 1; }
+}
+
 
 /* Spinner wave */
 
