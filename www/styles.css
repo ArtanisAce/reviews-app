@@ -64,6 +64,10 @@ button:hover {
 	background: red;
 }
 
+.app-container {
+	margin: 32px 0;
+}
+
 table.reviews-table {
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   border: 3px solid #948473;
@@ -98,7 +102,7 @@ table.reviews-table thead th:first-child {
 
 .filter {
 	display: flex;
-	margin: 0 24px;
+	margin: 0 32px;
 	border: 1px solid black;
 	padding: 8px;
 	width: fit-content;

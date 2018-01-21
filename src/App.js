@@ -8,7 +8,7 @@ class App extends React.Component {
 
 		this.state = {
 			reviews: [],
-			filterOption: "",
+			filterOption: '',
 			reviewSortOrder: '', // can be asc or desc (asc = most recent to oldest)
 			travelSortOrder: '',
 			showAverage: false,
@@ -35,6 +35,12 @@ class App extends React.Component {
 			this.setState({ reviews });
 		} catch (e) {
 			return e.message;
+		}
+	}
+
+	componentDidUpdate() {
+		if (this.state.showAverage || this.state.showAspectsAverage) {
+			this.scrollToBottom();
 		}
 	}
 
@@ -102,7 +108,9 @@ class App extends React.Component {
 		this.setState({ travelSortOrder: 'desc', reviewSortOrder: '' });
 	}
 
-
+	scrollToBottom() {
+		this.el.scrollIntoView({ behaviour: 'smooth' });
+	}
 
 	render() {
 		const reviewSortOrder = this.state.reviewSortOrder;
@@ -207,7 +215,7 @@ class App extends React.Component {
 			return spinnerWave;
 		} else {
 			return (
-				<div>
+				<div className="app-container">
 					<h1>Accomodation Reviews</h1>
 					{traveledWithFilter}
 					<ReviewsTable
@@ -216,7 +224,7 @@ class App extends React.Component {
 						reviewSortDesc={this.reviewSortDesc}
 						travelSortAsc={this.travelSortAsc}
 						travelSortDesc={this.travelSortDesc} />
-					<div className="calculations">
+					<div className="calculations" ref={el => { this.el = el; }}>
 						<div className="general-average">
 							<button onClick={this.showAverage}>Show general average</button>
 							{this.state.showAverage && <div className="general-average-result">{this.state.average}</div>}

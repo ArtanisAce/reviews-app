@@ -27,6 +27,13 @@ const ReviewsTable = ({ reviews, reviewSortAsc, reviewSortDesc, travelSortAsc, t
 		});
 	}
 
+	const arrowsProps = {
+		size: 16,
+		width: 16,
+		height: 16,
+		style: { "vertical-align": "middle", display: "inline-block", fill: "#666" }
+	}
+
 	return (
 		<table className="reviews-table">
 			<thead>
@@ -37,13 +44,13 @@ const ReviewsTable = ({ reviews, reviewSortAsc, reviewSortDesc, travelSortAsc, t
 						<span style={{ "text-align": "left" }}>
 							Review date
 						</span>
-						<SortArrows upArrowClick={reviewSortAsc} downArrowClick={reviewSortDesc} />
+						<SortArrows upArrowClick={reviewSortAsc} downArrowClick={reviewSortDesc} arrowsProps={arrowsProps} />
 					</th>
 					<th>
 						<span style={{ "text-align": "left" }}>
 							Travel date
 						</span>
-						<SortArrows upArrowClick={travelSortAsc} downArrowClick={travelSortDesc}/>
+						<SortArrows upArrowClick={travelSortAsc} downArrowClick={travelSortDesc} arrowsProps={arrowsProps} />
 					</th>
 					<th>Rating</th>
 					{/* <th>Aspects Rating</th>
