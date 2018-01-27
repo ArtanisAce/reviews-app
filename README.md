@@ -6,4 +6,4 @@ npm run build
 # Run app
 npm start
 
-# Listening on http://localhost:3000
+Listening on http://localhost:3000
